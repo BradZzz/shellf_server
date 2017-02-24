@@ -53,10 +53,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # full stack pipeline
-    'pipeline',
-    # DjangoRestFramework
-    'rest_framework',
+    # # full stack pipeline
+    # 'pipeline',
+    # # DjangoRestFramework
+    # 'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -140,73 +140,45 @@ USE_TZ = True
 STATIC_URL = 'bookexplorer/static/'
 STATIC_ROOT = normpath(join(SITE_ROOT, 'bookexplorer/static'))
 STATICFILES_DIRS = ()
-
-# Django Pipeline (and browserify)
-STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
-
-STATICFILES_FINDERS = (
-    'django.contrib.staticfiles.finders.FileSystemFinder',
-    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-    'pipeline.finders.PipelineFinder',
-)
-
-# browserify-specific
-# PIPELINE_COMPILERS = (
-#     'pipeline_browserify.compiler.BrowserifyCompiler',
-# )
-
-# PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
-# PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
-
-PIPELINE = {
-    'CSS_COMPRESSOR' : 'pipeline.compressors.NoopCompressor',
-    'JS_COMPRESSOR' : 'pipeline.compressors.uglifyjs.UglifyJSCompressor',
-    'STYLESHEETS': {
-        'dist': {
-            'source_filenames': (
-                'css/style.css',
-            ),
-            'output_filename': 'css/dist.css',
-        },
-    },
-    'JAVASCRIPT': {
-        'dist': {
-            'source_filenames': (
-                'js/third-party/jquery/dist/jquery.min.js',
-                'js/third-party/react/react-with-addons.js',
-                'js/app.browserify.js',
-            ),
-            'output_filename': 'js/dist.js',
-        }
-    },
-    'COMPILERS': ('pipeline_browserify.compiler.BrowserifyCompiler', ),
-    'BROWSERIFY_ARGS' : "--transform [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread transform-class-properties ] ]".split(),
-}
-
-
-
-# if DEBUG:
-#     #PIPELINE_BROWSERIFY_ARGUMENTS = '-t babelify'
-#     #PIPELINE['BROWSERIFY_ARGS'] = '-t babelify'
-#     PIPELINE['BROWSERIFY_ARGS'] = ['-d']
-
-# PIPELINE_CSS = {
-#     'booksite_css': {
-#         'source_filenames': (
-#             'css/style.css',
-#         ),
-#         'output_filename': 'css/booksite_css.css',
-#     },
-# }
 #
-# PIPELINE_JS = {
-#     'booksite_js': {
-#         'source_filenames': (
-#             'js/third-party/jquery/dist/jquery.min.js',
-#             'js/third-party/react/JSXTransformer.js',
-#             'js/third-party/react/react-with-addons.js',
-#             'js/app.browserify.js',
-#         ),
-#         'output_filename': 'js/dist.js',
-#     }
+# # Django Pipeline (and browserify)
+# STATICFILES_STORAGE = 'pipeline.storage.PipelineCachedStorage'
+#
+# STATICFILES_FINDERS = (
+#     'django.contrib.staticfiles.finders.FileSystemFinder',
+#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+#     'pipeline.finders.PipelineFinder',
+# )
+#
+# # browserify-specific
+# # PIPELINE_COMPILERS = (
+# #     'pipeline_browserify.compiler.BrowserifyCompiler',
+# # )
+#
+# # PIPELINE_CSS_COMPRESSOR = 'pipeline.compressors.NoopCompressor'
+# # PIPELINE_JS_COMPRESSOR = 'pipeline.compressors.uglifyjs.UglifyJSCompressor'
+#
+# PIPELINE = {
+#     'CSS_COMPRESSOR' : 'pipeline.compressors.NoopCompressor',
+#     'JS_COMPRESSOR' : 'pipeline.compressors.uglifyjs.UglifyJSCompressor',
+#     'STYLESHEETS': {
+#         'dist': {
+#             'source_filenames': (
+#                 'css/style.css',
+#             ),
+#             'output_filename': 'css/dist.css',
+#         },
+#     },
+#     'JAVASCRIPT': {
+#         'dist': {
+#             'source_filenames': (
+#                 'js/third-party/jquery/dist/jquery.min.js',
+#                 'js/third-party/react/react-with-addons.js',
+#                 'js/app.browserify.js',
+#             ),
+#             'output_filename': 'js/dist.js',
+#         }
+#     },
+#     'COMPILERS': ('pipeline_browserify.compiler.BrowserifyCompiler', ),
+#     'BROWSERIFY_ARGS' : "--transform [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread transform-class-properties ] ]".split(),
 # }
