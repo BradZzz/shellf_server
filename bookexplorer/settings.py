@@ -40,7 +40,7 @@ SECRET_KEY = '*a$u3meh$*2)j5w9-@29i-_h6+3%q0(2%*7fph-o_bry_z@-89'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','peaceful-badlands-42479.herokuapp.com']
+ALLOWED_HOSTS = ['0.0.0.0','127.0.0.1','shellf-server.herokuapp.com']
 
 
 # Application definition
