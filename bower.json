@@ -1,0 +1,22 @@
+{
+  "name": "bookexplorer",
+  "authors": [
+    "Mauve3 <mauvemoonman@gmail.com>"
+  ],
+  "description": "An awesome book analytics tool",
+  "main": "static/third-party",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "static/third-party",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "react": "^15.4.2"
+  }
+}

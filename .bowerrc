@@ -1,0 +1,8 @@
+{
+  "directory": "main/static/js/third-party",
+  "storage": {
+    "packages": ".bower-cache",
+    "registry": ".bower-registry"
+  },
+  "tmp": ".bower-tmp"
+}
