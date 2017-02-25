@@ -22,10 +22,17 @@ app_name = 'site'
 urlpatterns = [
     # ex: /site/
     #url(r'^$', TemplateView.as_view(template_name='site/index.html')),
-    url(r'^list/$', views.list, name='list'),
+    # url(r'^list/$', views.list, name='list'),
     # url(r'^(?P<book1>[0-9]+)/(?P<book2>[0-9]+)/(?P<pos>[0-9]+)/compareT/$', views.compareT, name='compareT'),
-    url(r'^(?P<book>[0-9]+)/analyze/$', views.analyze, name='analyze'),
-    url(r'^(?P<book1>[0-9]+)/(?P<book2>[0-9]+)/(?P<pos>[0-9]+)/compare/$', views.compare, name='compare'),
+    # url(r'^(?P<book>[0-9]+)/analyze/$', views.analyze, name='analyze'),
+    # url(r'^(?P<book1>[0-9]+)/(?P<book2>[0-9]+)/(?P<pos>[0-9]+)/compare/$', views.compare, name='compare'),
+
+    url(r'^list/$', views.list, name='list'),
+    url(r'^(?P<pos>[0-9]+)/pol/$', views.polarity, name='polarity'),
+    url(r'^(?P<pos>[0-9]+)/subj/$', views.subjectivity, name='subjectivity'),
+    url(r'^(?P<pos>[0-9]+)/words/$', views.words, name='words'),
     url(r'^similarity/$', views.similarity, name='similarity'),
     url(r'^condense/$', views.condense, name='condense'),
+
+
 ]

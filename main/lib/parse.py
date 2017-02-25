@@ -15,11 +15,15 @@ def getBooks():
             files += [filename]
     return files
 
-def pullTerm(data, term):
+def pullTerm(data, term, meta):
     comp = []
     for x in data:
-        if term in x:
-            comp += [x[term]]
+        if meta:
+            if term in x['meta']:
+                comp += [x['meta'][term]]
+        else:
+            if term in x:
+                comp += [x[term]]
     return comp
 
 def getFilename(fPath):
@@ -48,20 +52,17 @@ class parsedBooks():
             contentTbl += [book]
         return contentTbl
 
-    def getData(self):
-        return self.datum
-
-    def _genCompMap(self, df_1, df_2):
-        return {
-            'book1':{
-                'common':df_1[df_1['word'].isin(df_2['word'])]['word'].tolist(),
-                'diff':df_1[~df_1['word'].isin(df_2['word'])]['word'].tolist(),
-            },
-            'book2':{
-                'common':df_2[df_2['word'].isin(df_1['word'])]['word'].tolist(),
-                'diff':df_2[~df_2['word'].isin(df_1['word'])]['word'].tolist(),
-            }
-        }
+    # def _genCompMap(self, df_1, df_2):
+    #     return {
+    #         'book1':{
+    #             'common':df_1[df_1['word'].isin(df_2['word'])]['word'].tolist(),
+    #             'diff':df_1[~df_1['word'].isin(df_2['word'])]['word'].tolist(),
+    #         },
+    #         'book2':{
+    #             'common':df_2[df_2['word'].isin(df_1['word'])]['word'].tolist(),
+    #             'diff':df_2[~df_2['word'].isin(df_1['word'])]['word'].tolist(),
+    #         }
+    #     }
 
     def __getKey(self, item):
         return item[0]
@@ -89,24 +90,24 @@ class parsedBooks():
         vocab = vec.get_feature_names()
         return [x for x in sorted(zip(dist, vocab), key=self.__getKey, reverse=True) if x[0] > selected]
 
-    def compare(self, book1, book2, pos):
-        df_1 = pd.DataFrame(self.__returnSelectedWords(pullTerm(self.datum,'words')[book1].split(" "), pos), columns=['count','word'])
-        df_2 = pd.DataFrame(self.__returnSelectedWords(pullTerm(self.datum,'words')[book2].split(" "), pos), columns=['count','word'])
-        return self._genCompMap(df_1, df_2)
+    # def compare(self, book1, book2, pos):
+    #     df_1 = pd.DataFrame(self.__returnSelectedWords(pullTerm(self.datum,'words', False)[book1].split(" "), pos), columns=['count','word'])
+    #     df_2 = pd.DataFrame(self.__returnSelectedWords(pullTerm(self.datum,'words', False)[book2].split(" "), pos), columns=['count','word'])
+    #     return self._genCompMap(df_1, df_2)
 
-    def analyze(self, pos):
-        return {
-            'polarity':self.datum[pos]['meta']['polarity'],
-            'subjectivity':self.datum[pos]['meta']['subjectivity'],
-        }
+    # def analyze(self, pos):
+    #     return {
+    #         'polarity':self.datum[pos]['meta']['polarity'],
+    #         'subjectivity':self.datum[pos]['meta']['subjectivity'],
+    #     }
 
     def similarity(self):
         try:
             self.vector_words
             self.vector_sentiment
         except:
-            self.vector_words = self.__coSim(self.__analyzeVectorizer(pullTerm(self.datum,'words')))
-            self.vector_sentiment = self.__coSim(self.__analyzeVectorizer(pullTerm(self.datum,'sentiment')))
+            self.vector_words = self.__coSim(self.__analyzeVectorizer(pullTerm(self.datum,'words', False)))
+            self.vector_sentiment = self.__coSim(self.__analyzeVectorizer(pullTerm(self.datum,'sentiment', False)))
         return {
             'word':self.vector_words,
             'sentiment':self.vector_sentiment,
@@ -123,5 +124,32 @@ class parsedBooks():
         }
 
     def list(self):
-        return self.__getDescription()
+        listy = {}
+        for idx, x in enumerate(self.__getDescription()):
+            listy[str(idx)] = x
+        return listy
+
+    def words(self):
+        words = {}
+        for idx, x in enumerate(self.datum):
+            words[str(idx)] = self.__returnSelectedWords(x['words'].split(" "), 9)
+        return words
+
+    # def sentiment(self):
+    #     senty = {}
+    #     for idx, x in enumerate(self.datum):
+    #         senty[str(idx)] = x['sentiment']
+    #     return senty
+
+    def subjectivity(self):
+        subby = {}
+        for idx, x in enumerate(self.datum):
+            subby[str(idx)] = x['meta']['subjectivity']
+        return subby
+
+    def polarity(self):
+        polary = {}
+        for idx, x in enumerate(self.datum):
+            polary[str(idx)] = x['meta']['polarity']
+        return polary
 

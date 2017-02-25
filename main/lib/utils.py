@@ -7,6 +7,12 @@ def getFiles(path):
         for filename in filenames:
             yield os.path.join(dirpath, filename)
 
+def saveData(nFile, data):
+    target = open(nFile, 'w')
+    target.write(data)
+    target.close()
+    return target
+
 #Open file. Return info
 def openFile(fName):
     with open(fName) as dFile:

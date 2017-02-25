@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
+import dotenv
 
 if __name__ == "__main__":
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bookexplorer.settings")
@@ -19,4 +20,6 @@ if __name__ == "__main__":
                 "forget to activate a virtual environment?"
             )
         raise
+
+    dotenv.read_dotenv()
     execute_from_command_line(sys.argv)
